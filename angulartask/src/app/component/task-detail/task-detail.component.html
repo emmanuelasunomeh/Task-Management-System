@@ -1,0 +1,60 @@
+<div class=row >
+
+    <div class="col-xl-8 col-lg-8" *ngFor = "let userTask of userTask"  >
+    <!-- Dropdown Card Example -->
+                <div class="card shadow mb-4" *ngIf="userTask.user; else noDetail">
+                  
+                  <!-- Card Header - Dropdown -->
+                  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                      <h5 class="m-0 font-weight-bold text-primary"> {{userTask.task.title}}</h5>
+                    <b>{{userTask.user.f_name.toUpperCase() }} {{userTask.user.l_name}}</b>
+                  </div>
+                  <!-- Card Body -->
+                  <div class="card-body em" >
+                    {{userTask.task.description}}
+                  </div>
+  
+                  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">starts: {{userTask.task.creationDate | date: ('mediumDate') }} | completesBy: {{userTask.task.finishDate |date: ('mediumDate') }} </h6>
+                    <div *ngIf="userTask.task.ts.completed === true; else elseForm">
+                      <a class="btn-lg btn-health btn-circle"><i class="fas fa-bell " style="color:green;" ></i></a>
+                    </div>
+  
+                    <ng-template #elseForm>
+                      <a class="btn-lg btn-health btn-circle"><i class="fas fa-bell-slash " style="color:red;" ></i></a>
+                  </ng-template>
+                  </div>
+
+                  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between" *ngIf="presentUser?.role.rolename === 'ADMIN'" > 
+                    <!--change the userTask to localStorage-user-->
+                    <a href [routerLink]="['/dashboard', {id:userTask.task.id}]">
+                        <h4>&larr; Back </h4>
+                    </a>
+                  </div>
+
+                  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between" *ngIf="presentUser?.role.rolename !== 'ADMIN'" >
+                    <!--change the userTask to localStorage-user-->
+                    <a href [routerLink]="['/dashboard/user',presentUser?.id, {id:userTask.user.id}]">
+                        <h4>&larr; Back </h4>
+                    </a>
+                  </div>
+                </div>
+                <ng-template #noDetail>
+                  Not yet assigned to any User
+
+                  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between" *ngIf="presentUser?.role.rolename === 'ADMIN'" > 
+                    <!--change the userTask to localStorage-user-->
+                    <a href [routerLink]="['/dashboard', {id:userTask.task.id}]">
+                        <h4>&larr; Back </h4>
+                    </a>
+                  </div>
+
+                  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between" *ngIf="presentUser?.role.rolename !== 'ADMIN'" >
+                    <!--change the userTask to localStorage-user-->
+                    <a href [routerLink]="['/dashboard/user',presentUser?.id, {id:userTask.user.id}]">
+                        <h4>&larr; Back </h4>
+                    </a>
+                  </div>
+                </ng-template>  
+  </div>
+  </div>

@@ -1,0 +1,59 @@
+<div class="container">
+    <!-- Nested Row within Card Body -->
+    <div class="row" *ngFor="let userTask of userTask" >
+        <div class="col-lg-10" >
+                <div class="text-center col-lg-10">
+                    <i class="fas fa-tasks fa-5x text-gray-800 "></i>
+                    <h3 class="h4 text-gray-500 mb-4 ">Edit Task </h3>
+                </div>
+                <form class="user row" #userForm="ngForm">
+                    <div class="form-group">
+                        <div class="col-sm-6 mb-3 mb-sm-0 col-lg-12 col-xl-12">
+                            <input type="text" class="form-control form-control-user border-left-success" 
+                                        id="title" placeholder="Title" name="title" [(ngModel)]="userTask.task.title">
+                        </div>
+                    </div>
+
+                    <div class="form-group row col-lg-12">
+                        <div class="form-group col-lg-12 col-xl-12" >
+                            <textarea type="text" class="form-control border-left-success blue-border-focus " 
+                            rows=10 columns=4 placeholder="Input New Task...." id="description" name="description" [(ngModel)]="userTask.task.description">
+                            </textarea>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="form-group col-lg-6 " >
+                        <select class="form-control border-left-success" id="user"  [(ngModel)]="userTask.user" name="user">
+                            <option class="form-control form-control-user" disabled selected> Assigned To ? </option>
+                            <option class=" form-group form-control-user" *ngFor="let user of users" [ngValue]="user" 
+                                    selected="user==='userTask.user'" >{{user.f_name}}</option>
+                            
+                        </select>
+                    </div>
+                    <div class="col-lg-6">
+                        
+                    </div>
+                    
+                    
+                    <div class="col-lg-4">
+                        <a class="btn btn-primary btn-user btn-block " (click)="updateTask(userTask)" >
+                            <i class="fas fa-arrow-right fa-2x" style="color: white;" ></i>
+                        </a>
+                    </div>
+                    <div class="col-lg-12">
+                    </div>
+
+                    
+                    
+                </form>
+        </div>
+        <div class="col-lg-2" style="border-left:1px solid rgb(209, 208, 208); margin-bottom:-10%"> 
+            <h3>FirstName: {{userTask.user.f_name}}</h3> 
+            <h5>LastName: {{ userTask.user.l_name}}</h5>
+            <div> Description: {{userTask.task.description}}</div>
+            <div></div>
+        </div>
+        
+    </div>
+</div>
